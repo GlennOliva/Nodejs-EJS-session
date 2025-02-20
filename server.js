@@ -7,8 +7,14 @@ dotenv.config();
 const app = express();
 const pokemonRoutes = require("./pokemon"); // Import the routes
 
-app.set("view engine", "ejs"); // ✅ Fix view engine setup
-app.use(express.static(path.join(__dirname, "public"))); // ✅ Fix static files
+// ✅ Set EJS as the view engine
+app.set("view engine", "ejs");
+
+// ✅ Explicitly define the views directory
+app.set("views", path.join(__dirname, "views"));
+
+// ✅ Serve static files (CSS, JS, images)
+app.use(express.static(path.join(__dirname, "public")));
 
 app.use("/", pokemonRoutes); // ✅ Use the imported router
 
