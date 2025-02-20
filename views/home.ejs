@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Pokémon List</title>
+    <script src="https://cdn.tailwindcss.com"></script> <!-- Tailwind CSS -->
+</head>
+<body class="bg-gray-100 p-5">
+
+    <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-lg">
+        <h1 class="text-3xl font-bold text-center text-blue-600 mb-4">Pokémon List</h1>
+
+        <!-- Search Form -->
+        <form action="/search" method="GET" class="mb-4">
+            <input type="text" name="name" placeholder="Search Pokémon..." 
+                class="w-full p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500" />
+            <button type="submit" 
+                class="mt-2 w-full bg-blue-500 text-white p-2 rounded-lg hover:bg-blue-700 transition">
+                Search
+            </button>
+        </form>
+
+        <!-- Pokémon List -->
+        <ul class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+            <% pokemonList.forEach((pokemon, index) => { %>
+                <li class="bg-gray-200 p-4 rounded-lg shadow-md text-center">
+                    <a href="/pokemon/<%= pokemon.name %>" class="block">
+                        <img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/<%= offset + index + 1 %>.png" 
+                             alt="<%= pokemon.name %>" class="mx-auto w-24 h-24">                   
+                        <p class="mt-2 font-bold text-lg text-gray-700"><%= pokemon.name.toUpperCase() %></p>
+                    </a>
+                </li>
+            <% }); %>
+        </ul>
+        
+        
+
+       <!-- Pagination Controls -->
+       <div class="mt-6 flex justify-between">
+        <% if (page > 1) { %>
+            <a href="/pokemon/api?page=<%= page - 1 %>" 
+               class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Previous</a>
+        <% } %>
+    
+        <% if (nextPage) { %>
+            <a href="/pokemon/api?page=<%= page + 1 %>" 
+               class="bg-blue-500 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition">Next</a>
+        <% } %>
+    </div>
+    
+
+    </div>
+
+</body>
+</html>
